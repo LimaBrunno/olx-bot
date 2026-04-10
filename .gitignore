@@ -1,0 +1,45 @@
+# Sessão do browser (contém cookies de login — NUNCA subir)
+profiles/
+
+# Banco de dados e dados pessoais
+data/olx_bot.db
+data/chat_history.json
+data/debug.log
+data/debug_*.png
+data/dom_exploration/
+data/configs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Ambiente virtual
+venv/
+.venv/
+env/
+
+# Variáveis de ambiente
+.env
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Logs
+*.log
+logs/
