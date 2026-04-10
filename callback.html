@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OLX Hunter — Autorização</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      max-width: 480px;
+      width: 90%;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .logo { font-size: 48px; margin-bottom: 12px; }
+    h1 { color: #333; margin: 0 0 8px; font-size: 22px; }
+    p  { color: #666; font-size: 14px; margin: 0 0 24px; }
+    .code-box {
+      background: #f0f7ff;
+      border: 1px solid #c0d8f0;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: monospace;
+      font-size: 13px;
+      word-break: break-all;
+      color: #1a4a7a;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+    .copy-btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 24px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .copy-btn:hover { background: #1d4ed8; }
+    .success { color: #16a34a; font-size: 13px; margin-top: 10px; display: none; }
+    .error-card { color: #dc2626; }
+  </style>
+</head>
+<body>
+  <div class="card" id="main-card">
+    <div class="logo">🤖</div>
+    <h1>OLX Hunter</h1>
+    <p id="subtitle">Processando autorização...</p>
+    <div class="code-box" id="code-display" style="display:none"></div>
+    <button class="copy-btn" id="copy-btn" style="display:none" onclick="copyCode()">📋 Copiar código</button>
+    <div class="success" id="success-msg">✅ Copiado!</div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code  = params.get("code");
+    const error = params.get("error");
+
+    const subtitle = document.getElementById("subtitle");
+    const codeBox  = document.getElementById("code-display");
+    const copyBtn  = document.getElementById("copy-btn");
+
+    if (code) {
+      subtitle.textContent = "Autorização concluída! Copie o código abaixo e cole no aplicativo.";
+      codeBox.textContent  = code;
+      codeBox.style.display = "block";
+      copyBtn.style.display = "inline-block";
+    } else if (error) {
+      subtitle.textContent = "Autorização cancelada ou erro: " + error;
+      subtitle.style.color = "#dc2626";
+    } else {
+      subtitle.textContent = "Nenhum código recebido. Tente autorizar novamente.";
+      subtitle.style.color = "#dc2626";
+    }
+
+    function copyCode() {
+      navigator.clipboard.writeText(code).then(() => {
+        document.getElementById("success-msg").style.display = "block";
+        setTimeout(() => document.getElementById("success-msg").style.display = "none", 2000);
+      });
+    }
+  </script>
+</body>
+</html>
